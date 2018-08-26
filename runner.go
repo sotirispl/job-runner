@@ -1,3 +1,4 @@
+// Package runner spawns new goroutines to call a function. The goroutines run endlessly until the stop function is called. The number of goroutines to be created is required along with the functionality that each routine will execute. Also, an interval between each execution must be defined.
 package runner
 
 import (
@@ -91,15 +92,4 @@ func (j *job) stop() {
 	defer j.mu.Unlock()
 	fmt.Printf("job %d clossing\n", j.id)
 	j.quit <- true
-}
-
-func (j *job) isStopped() bool {
-	j.mu.Lock()
-	defer j.mu.Unlock()
-	select {
-	case <-j.quit:
-		return true
-	default:
-		return false
-	}
 }

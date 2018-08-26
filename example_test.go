@@ -9,7 +9,7 @@ import (
 	runner "github.com/sotirispl/job-runner"
 )
 
-func Example_NoError() {
+func ExampleRunner_first() {
 	mu := &sync.Mutex{}
 	counter := 1
 	printOutSmth := func() error {
@@ -34,16 +34,17 @@ func Example_NoError() {
 	// job 1 clossing
 }
 
-func Example_WithError() {
+func ExampleRunner_second() {
 	mu := &sync.Mutex{}
 	counter := 1
 	printOutSmth := func() error {
 		mu.Lock()
 		defer mu.Unlock()
 		if counter == 1 {
+			counter++
 			return errors.New("some error")
 		}
-		fmt.Printf("executed: %d\n", counter)
+		fmt.Printf("executed: %d\n", counter-1)
 		counter++
 		return nil
 	}
