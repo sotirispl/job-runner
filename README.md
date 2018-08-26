@@ -10,10 +10,7 @@ To start the job-runner just define the callback function to be executed in ever
 
 ```
 callback := func() error {
-		mu.Lock()
-		defer mu.Unlock()
-		fmt.Printf("executed: %d\n", counter)
-		counter++
+		fmt.Println("executed")
 		return nil
 	}
 
